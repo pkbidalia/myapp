@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        IMAGE = "ghcr.io/USERNAME/my-app:${BUILD_NUMBER}"
+        IMAGE = "ghcr.io/pkbidalia/myapp:${BUILD_NUMBER}"
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/USERNAME/my-app.git'
+                git 'https://github.com/pkbidalia/myapp.git'
             }
         }
 

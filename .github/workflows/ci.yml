@@ -1,0 +1,57 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+
+      - name: Test Coverage
+        run: npm test -- --coverage
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+            name: coverage-report
+            path: coverage/
+
+      - name: Build Docker image
+        run: docker build -t my-app:${{ github.sha }} .
+
+      - name: Login to GHCR
+        run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+
+      - name: Push image
+        run: |
+          docker tag my-app:${{ github.sha }} ghcr.io/USERNAME/my-app:${{ github.sha }}
+          docker push ghcr.io/USERNAME/my-app:${{ github.sha }}
+
+      - name: AI Code Review
+        run: |
+          python scripts/review_pr.py
