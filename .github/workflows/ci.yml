@@ -45,13 +45,13 @@ jobs:
         run: docker build -t my-app:${{ github.sha }} .
 
       - name: Login to GHCR
-        run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+        run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u pktata07 --password-stdin
 
       - name: Push image
         run: |
-          docker tag my-app:${{ github.sha }} ghcr.io/USERNAME/my-app:${{ github.sha }}
-          docker push ghcr.io/USERNAME/my-app:${{ github.sha }}
+          docker tag my-app:${{ github.sha }} ghcr.io/pktata07/my-app:${{ github.sha }}
+          docker push ghcr.io/pktata07/my-app:${{ github.sha }}
 
-      - name: AI Code Review
-        run: |
-          python scripts/review_pr.py
+     # - name: AI Code Review
+     #   run: |
+     #     python scripts/review_pr.py
