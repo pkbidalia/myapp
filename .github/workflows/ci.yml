@@ -54,8 +54,8 @@ jobs:
 
       - name: Push image
         run: |
-          docker tag my-app:${{ github.sha }} ghcr.io/pktata07/my-app:${{ github.sha }}
-          docker push ghcr.io/pktata07/my-app:${{ github.sha }}
+          docker tag my-app:${{ github.sha }} ghcr.io/pkbidalia/my-app:${{ github.sha }}
+          docker push ghcr.io/pkbidalia/my-app:${{ github.sha }}
 
      # - name: AI Code Review
      #   run: |
