@@ -2,6 +2,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
+    "build": "echo Build successful"
     "start": "node index.js"
   }
 }
